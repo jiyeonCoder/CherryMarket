@@ -1,0 +1,7 @@
+Create a Project in the Firebase => set settings(database, storage, hosting, authentication...) 
+=> create a new folder file anywhere(CherryMarket on the Desktop) => Open VSCode => open folder
+=> New Terminal => type 'npm install -g firebase-tools@9.12.1' => type 'firebase login'
+=> type 'firebase init' => Set the settings => Trim the index.html code 
+=> in Firebase > Project Overview > Project settings => copy and paste the <script/> part to html file
+=> (if I want to preview the code outcome) type 'firebase serve' 
+=> 
