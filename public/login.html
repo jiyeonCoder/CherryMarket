@@ -85,6 +85,12 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
 
+      firebase.auth().onAuthStateChanged((user)=>{
+        if (user){
+          console.log(user)
+        }
+      })
+
       $('#logout').click(function(){
           firebase.auth().signOut()
       })
