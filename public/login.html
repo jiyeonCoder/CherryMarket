@@ -34,7 +34,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(24, 97, 5);">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cherry Market</a>
+        <a class="navbar-brand" href="/index.html">Cherry Market</a>
+        <span class="ms-auto mx-2" id="userName"></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -85,16 +86,29 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
 
+      //Show the user name on the Nav bar
+      var userInfo = localStorage.getItem('user')
+      if (userInfo){
+        $('#userName').html(JSON.parse(userInfo).displayName)  
+      }
+
+      //Check if the user is logged in and save the user information into the localStorage if it is logged-in.
       firebase.auth().onAuthStateChanged((user)=>{
         if (user){
           console.log(user)
+          console.log(user.uid)
+          console.log(user.displayName)
+          localStorage.setItem('user', JSON.stringify(user))
         }
       })
 
+      //logout
       $('#logout').click(function(){
           firebase.auth().signOut()
+          localStorage.removeItem('user')
       })
 
+      //login
       $('#login').click(function(){
 
         var email = $('#email').val();
@@ -105,6 +119,7 @@
         })
       })
 
+      //To register an new account
       $('#register').click(function(){
 
         var email = $('#email-new').val();

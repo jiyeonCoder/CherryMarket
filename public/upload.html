@@ -34,7 +34,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(24, 97, 5);">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cherry Market</a>
+        <a class="navbar-brand" href="/index.html">Cherry Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,23 +74,26 @@
         var file = document.querySelector('#image').files[0];
         var storageRef = storage.ref();
         var setPath = storageRef.child('image/' + file.name);
-        var uploadFile = setPath.put(file)
+        var uploadPost = setPath.put(file)
 
-        uploadFile.on('state_changed',
+        uploadPost.on('state_changed',
             null,
             (error)=>{
                 console.error('The error is ', error);  
             },
+            //If no error, upload the post.
             ()=>{
-                uploadFile.snapshot.ref.getDownloadURL().then((url)=>{
+                uploadPost.snapshot.ref.getDownloadURL().then((url)=>{
                     console.log("The uploaded file's url is ", url);
 
                     var typedData = {
-                        'title' : $('#title').val(),
-                        'price' : $('#price').val(),
-                        'content' : $('#content').val(),
-                        'date' : new Date(),
-                        'image' : url
+                        title : $('#title').val(),
+                        price : $('#price').val(),
+                        content : $('#content').val(),
+                        date : new Date(),
+                        image : url,
+                        uid : JSON.parse(localStorage.getItem('user')).uid,
+                        name : JSON.parse(localStorage.getItem('user')).displayName
                     }
                     db.collection('product').add(typedData).then((result)=>{
                         console.log(result);

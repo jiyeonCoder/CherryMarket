@@ -57,39 +57,41 @@
       </div>
     </nav>
 
-    <div class="container">
-      <button id="edit">Edit</button>
-      <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
-      <div>
-        <h5>Updated : Jiyeon</h5>
-        <hr>
-        <h5 class="title"></h5>
-        <p class="date"></p>
-        <p class="price"></p>
-      </div>
+    <div class="container mt-3">
+        <input type="text" class="form-control mt-2" id="title" placeholder="title">
+        <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
+        <input type="text" class="form-control mt-2" id="price" placeholder="price">
+        <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
+        <input class="form-control mt-2" type="file" id="image">
+        <button class="btn btn-danger mt-3" id="send">Edit</button>
     </div>
 
     <script>
       const db = firebase.firestore();
       const storage = firebase.storage();
 
-      //Get id from the url.
       var queryString = new URLSearchParams(window.location.search);
-      
+
+      //Get the detail page's url id, and show the information to the edit page.
       db.collection('product').doc(queryString.get('id')).get().then((result)=>{
-          console.log(result.data())
-          const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-          var dateTime = result.data().date.toDate();
-          var formatted_dateTime = dateTime.getDate() + "-" + months[dateTime.getMonth()] + "-" + dateTime.getFullYear() +" " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
-          $('.detail-pic').css('background-image', `url(${result.data().image})`)
-          $('.title').html(result.data().title)
-          $('.date').html(formatted_dateTime)
-          $('.price').html(result.data().price + ' CAD')
+        console.log(result.data())
+        $('#title').val(result.data().title)
+        $('#content').val(result.data().content)
+        $('#price').val(result.data().price)
+        $('.detail-pic').css('background-image', `url(${result.data().image})`)
       })
 
-      $('#edit').click(function(){
-        window.location.href = '/edit.html?id=' + queryString.get('id')
+      //When click Edit button, change the information.
+      $('#send').click(function(){
+        var changedContent = {
+          title : $('#title').val(),
+          content : $('#content').val(),
+          price : $('#price').val()
+      }
       })
+
+      db.collection('product').doc(queryString.get('id')).update(changedContent)
+
     </script>
   </body>
 </html>
