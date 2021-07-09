@@ -58,14 +58,15 @@
     </nav>
 
     <div class="container">
-      <button id="edit">Edit</button>
       <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
       <div>
-        <h5>Updated : Jiyeon</h5>
+        <h5 class="author"></h5>
         <hr>
         <h5 class="title"></h5>
         <p class="date"></p>
         <p class="price"></p>
+        <button class="btn btn-outline-secondary" id="edit">Edit</button>
+        <button class="btn btn-outline-secondary" id="chat">Chat</button>
       </div>
     </div>
 
@@ -82,6 +83,7 @@
           var dateTime = result.data().date.toDate();
           var formatted_dateTime = dateTime.getDate() + "-" + months[dateTime.getMonth()] + "-" + dateTime.getFullYear() +" " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
           $('.detail-pic').css('background-image', `url(${result.data().image})`)
+          $('.author').html('Updated by: ' + result.data().name)
           $('.title').html(result.data().title)
           $('.date').html(formatted_dateTime)
           $('.price').html(result.data().price + ' CAD')
@@ -90,6 +92,12 @@
       $('#edit').click(function(){
         window.location.href = '/edit.html?id=' + queryString.get('id')
       })
+
+      $('#chat').click(function){
+        var chatInfo = {
+          
+        }
+      }
     </script>
   </body>
 </html>

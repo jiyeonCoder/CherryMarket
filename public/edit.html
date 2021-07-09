@@ -81,16 +81,17 @@
         $('.detail-pic').css('background-image', `url(${result.data().image})`)
       })
 
-      //When click Edit button, change the information.
+      //When clicking the Edit button, change the information.
       $('#send').click(function(){
         var changedContent = {
           title : $('#title').val(),
           content : $('#content').val(),
           price : $('#price').val()
       }
+      db.collection('product').doc(queryString.get('id')).update(changedContent)
       })
 
-      db.collection('product').doc(queryString.get('id')).update(changedContent)
+
 
     </script>
   </body>
