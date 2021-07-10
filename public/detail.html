@@ -76,9 +76,14 @@
 
       //Get id from the url.
       var queryString = new URLSearchParams(window.location.search);
+      //Get author's uid
+      var authorUid;
+      var title;
       
       db.collection('product').doc(queryString.get('id')).get().then((result)=>{
           console.log(result.data())
+          authorUid = result.data().uid;
+          title = result.data().title;
           const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
           var dateTime = result.data().date.toDate();
           var formatted_dateTime = dateTime.getDate() + "-" + months[dateTime.getMonth()] + "-" + dateTime.getFullYear() +" " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
@@ -93,11 +98,17 @@
         window.location.href = '/edit.html?id=' + queryString.get('id')
       })
 
-      $('#chat').click(function){
+      //Get the currentUid with JSON format from the localStorage. 
+      var currentUid = JSON.parse(localStorage.getItem('user')).uid;
+
+      $('#chat').click(function(){
         var chatInfo = {
-          
+          participant : [currentUid, authorUid],
+          product : title,
+          date : new Date()
         }
-      }
+        db.collection('chatroom').add(chatInfo)
+      })
     </script>
   </body>
 </html>
