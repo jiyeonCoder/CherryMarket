@@ -84,17 +84,32 @@
       const storage = firebase.storage();
 
       var currentUid = JSON.parse(localStorage.getItem('user')).uid;
+      var chatroomId;
 
       db.collection('chatroom').where('participant', 'array-contains', currentUid).get().then((result)=>{
         result.forEach((a)=>{
             console.log(a.data())
             var template = `<li class="list-group-item">
                 <h6>${a.data().product}</h6>
-                <h6 class="text-small">채팅방아이디</h6>
+                <h6 class="text-small">${a.id}</h6>
               </li>`
             $('.chat-list').append(template)
-        })
 
+            $('.list-group-item').click(function(){
+              chatroomId = $(this).children('.text-small').text()
+            })
+        })
+      })
+
+      $('#send').click(function(){
+
+        var data = {
+          content : $('#chat-input').val(),
+          date : new Date(),
+          uid : currentUid,
+        }
+
+        db.collection('chatroom').doc(chatroomId).collection('messages').add(data)
       })
 
     </script>
