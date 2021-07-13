@@ -65,6 +65,7 @@
         <h5 class="title"></h5>
         <p class="date"></p>
         <p class="price"></p>
+        <p class="test">Test</p>
         <button class="btn btn-outline-secondary" id="edit">Edit</button>
         <button class="btn btn-outline-secondary" id="chat">Chat</button>
       </div>
@@ -102,22 +103,28 @@
       var currentUid = JSON.parse(localStorage.getItem('user')).uid;
 
       $('#chat').click(function(){
+
         var chatInfo = {
           participant : [currentUid, authorUid],
           product : title,
           date : new Date()
-        }
+        };
 
-        // db.collection('chatroom').where('participant', '==', '[currentUid, authorUid]').get().then((result)=>{
-        //   //console.log(result.data())
-        //   if (result){
-        //     null;
-        //   }else{
-        //     db.collection('chatroom').add(chatInfo)
-        //   }
-        // })
+        db.collection('chatroom').where('participant', '==', '[currentUid, authorUid]').get().then((result)=>{
+          //console.log(result.data())
+          if (true){
+            //Delay 100 miliseconds, then go to the /chat.html page.
+            setTimeout(function() {
+              window.location.href = '/chat.html';
+            },500);
+          }else{
+            db.collection('chatroom').add(chatInfo)
+            setTimeout(function() {
+              window.location.href = '/chat.html';
+            },500);
+          }
+        })
 
-        db.collection('chatroom').add(chatInfo)
       })
     </script>
   </body>
