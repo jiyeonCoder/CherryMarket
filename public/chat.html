@@ -66,13 +66,13 @@
           <div class="col-9 p-0">
             <div class="chat-room">
               <ul class="list-group chat-content">
-                <li><span class="chat-box">채팅방1 내용</span></li>
-                <li><span class="chat-box">채팅방1 내용</span></li>
-                <li><span class="chat-box mine">채팅방1 내용</span></li>
+                <li><span class="chat-box">Content 1</span></li>
+                <li><span class="chat-box">Content 2</span></li>
+                <li><span class="chat-box mine">Content 3</span></li>
               </ul>
               <div class="input-group">
                 <input class="form-control" id="chat-input">
-                <button class="btn btn-secondary" id="send">전송</button>
+                <button class="btn btn-secondary" id="send">Send</button>
               </div>
             </div>
           </div>
@@ -95,8 +95,21 @@
               </li>`
             $('.chat-list').append(template)
 
-            $('.list-group-item').click(function(){
-              chatroomId = $(this).children('.text-small').text()
+            $('.list-group-item').click(function(e){
+              chatroomId = $(this).children('.text-small').text();
+
+              e.stopImmediatePropagation();
+
+              db.collection('chatroom').doc(chatroomId).collection('messages').orderBy('date').onSnapshot((result)=>{
+                //clear content if click on any chatroom.
+                $('.chat-content').html('');
+                //Show all the list of messages from database.
+                result.forEach((a)=>{
+                  //console.log(a.data())
+                  var template = `<li><span class="chat-box mine">${a.data().content}</span></li>`;
+                  $('.chat-content').append(template)
+                })
+              })
             })
         })
       })
