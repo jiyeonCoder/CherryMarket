@@ -35,14 +35,26 @@
   .chat-content li {
     margin-top: 10px;
   }
+  .text-small {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 0;
+  }
   .chat-box {
     color: white;
     background: rgb(151, 144, 144);
     padding: 5px;
+    margin-bottom: 30;
     border-radius: 5px;
     float: left;
   }
   .mine {
     float: right;
-    background-color: rgb(139, 192, 167);
+    background-color: rgb(141, 197, 171);
+  }
+  .chat-date {
+    float: right;
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 11px;
   }
