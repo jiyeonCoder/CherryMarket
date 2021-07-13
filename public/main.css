@@ -36,11 +36,13 @@
     margin-top: 10px;
   }
   .chat-box {
-    background: #eee;
+    color: white;
+    background: rgb(151, 144, 144);
     padding: 5px;
     border-radius: 5px;
     float: left;
   }
   .mine {
     float: right;
+    background-color: rgb(139, 192, 167);
   }
