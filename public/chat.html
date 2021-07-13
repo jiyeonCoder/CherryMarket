@@ -86,17 +86,17 @@
       var currentUid = JSON.parse(localStorage.getItem('user')).uid;
       var chatroomId;
 
+      //Show all the list of chatrooms that contains my currentUid.
       db.collection('chatroom').where('participant', 'array-contains', currentUid).get().then((result)=>{
         result.forEach((a)=>{
             console.log(a.data())
             var template = `<li class="list-group-item">
                 <h6>${a.data().product}</h6>
-                <h6>${a.data().date.toDate()}</h6>
                 <h6 class="text-small">${a.id}</h6>
               </li>`
             $('.chat-list').append(template)
 
-              //When clicking one of the list of chatrooms, show according messages from the database.
+            //When clicking one of the list of chatrooms, show according messages from the database.
             $('.list-group-item').click(function(e){
               chatroomId = $(this).children('.text-small').text();
 
@@ -111,9 +111,16 @@
                   //console.log(a.data())
                   var dateTime = a.data().date.toDate();
                   var formatted_dateTime = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
-                  var template = `<li><span class="chat-box mine">${a.data().content}</span></li>
-                  <li><span class="chat-date">${formatted_dateTime}</span></li>`;
-                  $('.chat-content').append(template)
+                  var template_mine = `<div class="groupLine"><li><span class="chat-box mine">${a.data().content}</span></li>
+                  <li><span class="chat-date">${formatted_dateTime}</span></li></div>`;
+                  var template_other = `<div class="groupLine"><li><span class="chat-box">${a.data().content}</span></li>
+                  <li><span class="chat-date">${formatted_dateTime}</span></li></div>`;
+
+                  if(currentUid == a.data().uid){
+                    $('.chat-content').append(template_mine)
+                  } else{
+                    $('.chat-content').append(template_other)
+                  }
                 })
               })
             })
