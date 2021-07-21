@@ -65,7 +65,7 @@
         <h5 class="title"></h5>
         <p class="date"></p>
         <p class="price"></p>
-        <p class="test">Test</p>
+        <p class="content"></p>
         <button class="btn btn-outline-secondary" id="edit">Edit</button>
         <button class="btn btn-outline-secondary" id="chat">Chat</button>
       </div>
@@ -92,6 +92,7 @@
           $('.author').html('Updated by: ' + result.data().name)
           $('.title').html(result.data().title)
           $('.date').html(formatted_dateTime)
+          $('.content').html(result.data().content)
           $('.price').html(result.data().price + ' CAD')
       })
 
