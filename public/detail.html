@@ -110,23 +110,27 @@
           product : title,
           date : new Date()
         };
+        db.collection('chatroom').add(chatInfo);
+        setTimeout(function() {
+          window.location.href = '/chat.html';
+        }, 500);
 
-        db.collection('chatroom').where('participant', '==', [currentUid, authorUid]).get().then((result)=>{
-          result.forEach((a)=>{
-            console.log(a.data())
-            if (a != null){
-            //Delay 100 miliseconds, then go to the /chat.html page.
-              setTimeout(function() {
-                window.location.href = '/chat.html';
-              },500);
-            } else {
-              db.collection('chatroom').add(chatInfo)
-              setTimeout(function() {
-                window.location.href = '/chat.html';
-              },500);
-            }
-          })
-        })
+        // db.collection('chatroom').where('participant', 'array-contians', currentUid).get().then((result)=>{
+        //   result.forEach((a)=>{
+        //     console.log(a.data())
+        //     if (a != null){
+        //     //Delay 500 miliseconds, then go to the /chat.html page.
+        //       setTimeout(function() {
+        //         window.location.href = '/chat.html';
+        //       },500);
+        //     } else {
+        //       db.collection('chatroom').add(chatInfo)
+        //       setTimeout(function() {
+        //         window.location.href = '/chat.html';
+        //       },500);
+        //     }
+        //   })
+        // })
       })
     </script>
   </body>
