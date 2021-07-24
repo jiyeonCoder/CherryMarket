@@ -100,6 +100,7 @@
             $('.list-group-item').click(function(e){
               chatroomId = $(this).children('.text-small').text();
 
+              //To prevent the eventBubbling. Without this, the program would understand I clicked the chatroom twice, in fact I clicked only once.
               e.stopImmediatePropagation();
 
               db.collection('chatroom').doc(chatroomId).collection('messages').orderBy('date').onSnapshot((result)=>{
