@@ -111,11 +111,12 @@
                 result.forEach((a)=>{
                   //console.log(a.data())
                   var dateTime = a.data().date.toDate();
-                  var formatted_dateTime = dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
+                  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                  var formatted_dateTime = dateTime.getDate() + " " + months[dateTime.getMonth()] + " " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
                   var template_mine = `<div class="groupLine"><li><span class="chat-box mine">${a.data().content}</span></li>
-                  <li><span class="chat-date">${formatted_dateTime}</span></li></div>`;
+                  <li><span class="chat-date1">${formatted_dateTime}</span></li></div>`;
                   var template_other = `<div class="groupLine"><li><span class="chat-box">${a.data().content}</span></li>
-                  <li><span class="chat-date">${formatted_dateTime}</span></li></div>`;
+                  <li><span class="chat-date2">${formatted_dateTime}</span></li></div>`;
 
                   if(currentUid == a.data().uid){
                     $('.chat-content').append(template_mine)

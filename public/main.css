@@ -51,8 +51,15 @@
     float: right;
     background-color: rgb(127, 179, 155);
   }
-  .chat-date {
+  .chat-date1 {
     float: right;
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 11px;
+  }
+
+  .chat-date2 {
+    float: left;
     margin-top: 0;
     padding-top: 0;
     font-size: 11px;
