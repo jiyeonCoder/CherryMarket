@@ -83,6 +83,7 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
 
+      var otherUid;
       var currentUid = JSON.parse(localStorage.getItem('user')).uid;
       var chatroomId;
 
@@ -115,7 +116,8 @@
                   var formatted_dateTime = dateTime.getDate() + " " + months[dateTime.getMonth()] + " " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
                   var template_mine = `<div class="groupLine"><li><span class="chat-box mine">${a.data().content}</span></li>
                   <li><span class="chat-date1">${formatted_dateTime}</span></li></div>`;
-                  var template_other = `<div class="groupLine"><li><span class="chat-box">${a.data().content}</span></li>
+                  var template_other = `<div class="groupLine">
+                    <li><span class="chat-box">${a.data().content}</span></li>
                   <li><span class="chat-date2">${formatted_dateTime}</span></li></div>`;
 
                   if(currentUid == a.data().uid){
