@@ -58,10 +58,21 @@
     padding-top: 0;
     font-size: 11px;
   }
-
   .chat-date2 {
     float: left;
     margin-top: 0;
     padding-top: 0;
     font-size: 11px;
+  }
+  .btn {
+    position: absolute;
+    right: 15%;
+    font-weight: bold;
+  }
+  .btn-outline-success {
+    background-color: white;
+  }
+  .btn-outline-success:hover {
+    border: 1px solid white;
+    color: white;
   }
