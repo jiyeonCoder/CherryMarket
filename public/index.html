@@ -9,27 +9,26 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(24, 97, 5);">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(231, 226, 224);">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/index.html">Cherry Market</a>
+        <a class="navbar-brand" href="/index.html" id="brandName">Cherry Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#" id="nav-item">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#" id="nav-item">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a type="button" class="btn btn-outline-success" href="/login.html">Sign In</a>
+              <a class="nav-link" href="#" id="nav-item">Pricing</a>
             </li>
           </ul>
+          <span class="ms-auto mx-2" id="userName"></span>
+          <a type="button" class="btn btn-outline-success" href="/login.html">Sign In</a>
         </div>
       </div>
     </nav>
@@ -78,6 +77,13 @@
 
     <script>
       const db = firebase.firestore();
+
+      //Show the user name on the Nav bar
+      var userInfo = localStorage.getItem('user')
+      if (userInfo){
+        $('#userName').html(JSON.parse(userInfo).displayName)  
+      }
+
       db.collection('product').get().then((result)=>{
         result.forEach((doc)=>{
           console.log(doc.data());
