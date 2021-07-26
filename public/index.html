@@ -33,13 +33,8 @@
       </div>
     </nav>
 
-
-
-
-
-
     <div class="container mt-3" id="include">
-
+      
       <script src="/__/firebase/8.6.8/firebase-app.js"></script>
       <script src="/__/firebase/8.6.8/firebase-auth.js"></script>
       <script src="/__/firebase/8.6.8/firebase-firestore.js"></script>
@@ -68,12 +63,7 @@
         $(()=>{ $("#include").load("firebaseConfig.html");});
       </script> -->
 
-
-
     </div>
-
-
-
 
     <script>
       const db = firebase.firestore();
@@ -84,6 +74,7 @@
         $('#userName').html(JSON.parse(userInfo).displayName)  
       }
 
+      //Get the product info from Firebase collection, then show them as list of items on the main page.
       db.collection('product').get().then((result)=>{
         result.forEach((doc)=>{
           console.log(doc.data());
