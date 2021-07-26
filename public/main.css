@@ -65,11 +65,12 @@
     font-size: 11px;
   }
   .btn {
-    position: absolute;
-    right: 15%;
+
     font-weight: bold;
   }
   .btn-outline-success {
+    position: fixed;
+    right: 15%;
     background-color: white;
   }
   .btn-outline-success:hover {
