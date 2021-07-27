@@ -51,7 +51,7 @@
             </li>
           </ul>
           <span class="ms-auto mx-2" id="userName"></span>
-          <a type="button" class="btn btn-outline-success" href="/login.html">Sign In</a>
+          <a type="button" class="btn btn-outline-success" id="sign-in" href="/login.html"></a>
         </div>
       </div>
     </nav>
@@ -84,10 +84,13 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
 
-      //Show the user name on the Nav bar
-      var userInfo = localStorage.getItem('user');
+      //Show the user name on the Nav bar if logged-in, otherwise show the 'Sign In' button.
+      var userInfo = localStorage.getItem('user')
       if (userInfo){
-        $('#userName').html(JSON.parse(userInfo).displayName)  
+        $('#userName').html(JSON.parse(userInfo).displayName)
+        $('#sign-in').append(`Log Out`)
+      }else {
+        $('#sign-in').append(`Sign In`)
       }
 
       //Check if the user is logged in and save the user information into the localStorage if it is logged-in.
@@ -104,6 +107,9 @@
       $('#logout').click(function(){
           firebase.auth().signOut()
           localStorage.removeItem('user')
+          setTimeout(function() {
+            window.location.href = '/index.html';
+          }, 500);
       })
 
       //login
@@ -114,7 +120,11 @@
 
         firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
           console.log(result.user)
+
         })
+        setTimeout(function() {
+          window.location.href = '/index.html';
+        }, 500);
       })
 
       //To register an new account

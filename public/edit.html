@@ -51,7 +51,7 @@
         </li>
       </ul>
       <span class="ms-auto mx-2" id="userName"></span>
-      <a type="button" class="btn btn-outline-success" href="/login.html">Sign In</a>
+      <a type="button" class="btn btn-outline-success" id="sign-in" href="/login.html"></a>
     </div>
   </div>
 </nav>
@@ -69,10 +69,13 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
 
-      //Show the user name on the Nav bar
-      var userInfo = localStorage.getItem('user');
+      //Show the user name on the Nav bar if logged-in, otherwise show the 'Sign In' button.
+      var userInfo = localStorage.getItem('user')
       if (userInfo){
-        $('#userName').html(JSON.parse(userInfo).displayName)  
+        $('#userName').html(JSON.parse(userInfo).displayName)
+        $('#sign-in').append(`Log Out`)
+      }else {
+        $('#sign-in').append(`Sign In`)
       }
 
       var queryString = new URLSearchParams(window.location.search);

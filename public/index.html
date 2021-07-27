@@ -28,12 +28,14 @@
             </li>
           </ul>
           <span class="ms-auto mx-2" id="userName"></span>
-          <a type="button" class="btn btn-outline-success" href="/login.html">Sign In</a>
+          <a type="button" class="btn btn-outline-success" id="sign-in" href="/login.html"></a>
         </div>
       </div>
     </nav>
 
     <div class="container mt-3" id="include">
+      <h3>Items</h3>
+      <a type="button" class="btn btn-outline-primary" id="upload" href="/upload.html">Sell My Product</a>
       
       <script src="/__/firebase/8.6.8/firebase-app.js"></script>
       <script src="/__/firebase/8.6.8/firebase-auth.js"></script>
@@ -66,10 +68,13 @@
     <script>
       const db = firebase.firestore();
 
-      //Show the user name on the Nav bar
+      //Show the user name on the Nav bar if logged-in, otherwise show the 'Sign In' button.
       var userInfo = localStorage.getItem('user')
       if (userInfo){
-        $('#userName').html(JSON.parse(userInfo).displayName)  
+        $('#userName').html(JSON.parse(userInfo).displayName)
+        $('#sign-in').append(`Log Out`)
+      }else {
+        $('#sign-in').append(`Sign In`)
       }
 
       //Get the product info from Firebase collection, then show them as list of items on the main page.
@@ -80,15 +85,15 @@
           var dateTime = doc.data().date.toDate();
           var formatted_dateTime = dateTime.getDate() + "-" + months[dateTime.getMonth()] + "-" + dateTime.getFullYear() +" " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
           var template = `<div class="product">
-        <div class="thumbnail" style="background-image: url('${doc.data().image}');"></div>
-        <div class="flex-grow-1 p-4">
-          <h5 class="title"><a class="title-index" href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
-          <p class="data">${formatted_dateTime}</p>
-          <p class="price">${doc.data().price} CAD</p>
-          <p class="content">${doc.data().content}</p>
-          <p class="float">💗0</p>
-        </div>
-      </div>`;
+                            <div class="thumbnail" style="background-image: url('${doc.data().image}');"></div>
+                            <div class="flex-grow-1 p-4">
+                              <h5 class="title"><a class="title-index" href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
+                              <p class="data">${formatted_dateTime}</p>
+                              <p class="price">${doc.data().price} CAD</p>
+                              <p class="content">${doc.data().content}</p>
+                              <p class="float">💗0</p>
+                            </div>
+                          </div>`;
           $('.container').append(template)
         })
       })
