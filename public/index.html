@@ -59,7 +59,6 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
       </script>
-    </div>
 
       <!-- <script type="text/javascript">
         //Use this script when importing html file.
@@ -85,16 +84,15 @@
           const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
           var dateTime = doc.data().date.toDate();
           var formatted_dateTime = dateTime.getDate() + "-" + months[dateTime.getMonth()] + "-" + dateTime.getFullYear() +" " + dateTime.getHours() + ":" + dateTime.getMinutes() + ":" + dateTime.getSeconds();
-          var template = `<div class="gallery">
-                            <a class="title-index" href="/detail.html?id=${doc.id}">
-                              <img class="image" src="${doc.data().image}" alt="image">
-                              <div class="desc">
-                                <h5 class="title">${doc.data().title}</h5>
-                                <p class="data">${formatted_dateTime}</p>
-                                <p class="price">${doc.data().price} CAD</p>
-                                <p class="float">💗0</p>
-                              </div>
-                            </a>
+          var template = `<div class="product">
+                            <div class="thumbnail" style="background-image: url('${doc.data().image}');"></div>
+                            <div class="flex-grow-1 p-4">
+                              <h5 class="title"><a class="title-index" href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
+                              <p class="data">${formatted_dateTime}</p>
+                              <p class="price">${doc.data().price} CAD</p>
+                              <p class="content">${doc.data().content}</p>
+                              <p class="float">💗0</p>
+                            </div>
                           </div>`;
           $('.container').append(template)
         })
